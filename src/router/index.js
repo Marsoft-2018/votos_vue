@@ -4,6 +4,8 @@ import PanelAdmin from '../views/PanelAdmin.vue'
 import Login from '../components/Login.vue'
 import Alumnos from '../components/Alumnos'
 import Formulario_Estudiante from '../components/Formulario_Estudiante'
+import Form_Candidatos from '../components/Form_Candidatos'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -40,7 +42,14 @@ const routes = [
       {
         path: '/candidatos',
         name: 'candidatos',
-        component: () => import('../views/Candidatos.vue')
+        component: () => import('../views/Candidatos.vue'),
+        children:[
+          {
+            path: '/aspirantes',
+            name: 'aspirantes',
+            component: Form_Candidatos
+          }
+        ]
       }  ,
       {
         path: '/conteo',

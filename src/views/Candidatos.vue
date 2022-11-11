@@ -2,10 +2,9 @@
     <div class="container">
         <h3 class="title is-1 mt-4">LISTADO DE CANDIDATOS</h3>
         <section class="box mt-6">
-            <b-button class="is-primary" type="button"  @click="isComponentModalActive = true">Agregar Candidato</b-button> 
+            <router-link to="aspirantes"><b-button class="is-primary" type="button">Agregar Candidato</b-button></router-link>
             <b-table
-                :data="datos"
-                :selected.sync="selected"
+                :data="datos"                
                 focusable>
                 <b-table-column field="Id" label="ID" width="40" numeric v-slot="props">
                     {{ props.row.Id }}
@@ -28,6 +27,7 @@
                 </b-table-column>
             </b-table>
         </section>
+        <router-view></router-view>
     </div>
 </template>
 <script>
@@ -38,13 +38,15 @@
 
             return {
                 datos,
-                isBordered: false,
-                selected: datos[0]                
+                isBordered: false            
             }
         },
         mounted(){
             axios.get("http://localhost:21896/api/Candidatos").then(response => (this.datos = response.data))
-        }
+        },
+        methods: {
+            
+        },
     }
 </script>
 <style scoped>
