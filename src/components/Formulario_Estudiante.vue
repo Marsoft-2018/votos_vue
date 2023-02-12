@@ -65,6 +65,7 @@
 
     import axios from 'axios';
     export default{
+        props:["idEstudiante"],   
         data(){
             const grados = []
             const estudiante = {
@@ -89,12 +90,21 @@
             }
         },
         mounted(){
-            
             axios.get("http://localhost:21896/api/Grados").then(response => { this.grados = response.data });
+            if(this.$route.params['id']){
+                let idEst = this.$route.params['id'];
+                axios.get("http://localhost:21896/api/Estudiantes/cargar/"+idEst).then(response => { this.estudiante = response.data[0]; this.agregar = false; });
+            }
         },
         methods:{
             agregarEstudiante(){
                 axios.post("http://localhost:21896/api/Estudiantes",this.estudiante).then(response => 
+                    this.$buefy.toast.open({message: response.data,type: 'is-success'}),
+                    this.$router.push("/alumnos")
+                );
+            },
+            modificarEstudiante(){
+                axios.put("http://localhost:21896/api/Estudiantes",this.estudiante).then(response => 
                     this.$buefy.toast.open({message: response.data,type: 'is-success'}),
                     this.$router.push("/alumnos")
                 );

@@ -114,13 +114,12 @@ import router from '@/router';
                         //this.mensaje = result.data[0].nombre;
                         this.$buefy.toast.open(result.data);
                         this.datos.splice(id,1);
-                        console.log(result.data);
                         });
                     }
                 })
             },
-            editarAlumno(){
-                router.push("/formAlumnos/"+this.selected.id);
+            editarAlumno(id){
+                router.push("/formAlumnos/"+id);
             }
         },
         created(){
